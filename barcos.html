@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="./src/images/LogoYatchClub.png" />
+
+    <title>YatchClub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="src/style.css">
+
+
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-transparent fixed-top navbar-transparent">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">
+                    <img src="./src/images/LogoYatchClub.png" alt="Logo" class="d-inline-block align-text-top" style="width: 150px; height: 150px;">
+                </a>
+                <div class="">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+                  <span class="navbar-toggler-icon" style="font-size: 2rem;"></span>
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M1 1h15M1 7h15M1 13h15" />
+        </button>
+                </div>
+
+                <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+                    <ul class="navbar-nav fs-4">
+                        <li class="nav-item">
+                            <a class="nav-link text-black " href="index.html" onmouseover="animateMenu(this)">INICIO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-black" href="socios.html" onmouseover="animateMenu(this)">SOCIOS DEL CLUB</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-black active" href="barcos.html" onmouseover="animateMenu(this)">AÑADIR MI BARCO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-black" href="alquilar.html" onmouseover="animateMenu(this)">ALQUILAR UN BARCO</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container pt-20 mx-auto">
+
+            <!-- Modal para añadir un Barco -->
+
+            <div class="container-sm ">
+                <h1 class="py-10 text-2xl font-bold text-black custom-heading">
+                    TABLA BARCOS
+                </h1>
+
+                <div class="relative mb-10 overflow-x-auto shadow-md sm:rounded-lg">
+                    <table class="futuristic-table w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400" id="tablaBarcos">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-white">Matricula</th>
+                                <th scope="col" class="px-6 py-3 text-white">Nombre</th>
+                                <th scope="col" class="px-6 py-3 text-white">Num. Amarre</th>
+                                <th scope="col" class="px-6 py-3 text-white">Cuota</th>
+                                <th scope="col" class="px-6 py-3 text-white">Nombre Propietario</th>
+                                <th scope="col" class="px-6 py-3 text-white">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Aqui van los usuarios creados o ya listados -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="flex flex-row items-center justify-center gap-4">
+                    <button id="btn-add" class="futuristic-btn ">
+                    Añadir Barco
+                </button>
+                </div>
+
+
+
+
+
+                <!-- Contenedor del historial -->
+                <div id="historialBarcosContainer">
+                    <div class="container-sm" id="historialBarcos">
+                        <h1 class="py-10 text-2xl font-bold text-dark">
+                            Historial de Salidas
+                        </h1>
+                        <div class="relative mb-10 overflow-x-auto shadow-md sm:rounded-lg">
+                            <table class="futuristic-table w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400" id="tablaHistorialSalidas">
+
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-white">Fecha y Hora de Salida</th>
+                                        <th scope="col" class="px-6 py-3 text-white">Destino</th>
+                                        <th scope="col" class="px-6 py-3 text-white">Conductor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!--Aqui van los usuarios creados o ya listaods -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Main modal -->
+            <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex justify-center items-center w-full h-[calc(100%-1rem)] max-h-full bg-black bg-opacity-50 backdrop-blur-lg">
+                <div class="relative p-4 w-full max-w-2xl max-h-full">
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
+                        <!-- Modal header -->
+                        <div class="flex items-center justify-between p-4 md:p-5 border-b dark:border-gray-700">
+                            <h1 class="text-3xl font-bold text-cyan-300">
+                                Añadir nuevo Barco
+                            </h1>
+                        </div>
+
+
+                        <!-- Modal body -->
+                        <div class="container mx-auto p-4 md:p-5 space-y-4">
+                            <img src="https://www.realyachtcharter.com/media/thumb/property/de-antonio-yacht-d33/KjFclikpv_Xs_1100x650_nqQsPIuX.jpg" alt="Imagen futurista" class="w-full h-48 object-cover rounded-lg mb-5">
+
+                            <form id="formBarcos">
+                                <div class="mx-auto">
+                                    <div class="flex flex-col flex-wrap p-12 bg-white bg-opacity-10 border-2 border-cyan-500 drop-shadow-xl rounded-xl gap-y-6">
+                                        <div class="flex flex-col md:flex-row gap-x-4">
+                                            <div class="w-full md:w-1/2">
+                                                <label for="matricula" class="block text-lg font-medium leading-6 text-gray-900 mb-6">Matricula</label>
+                                                <div class="mt-2 relative">
+                                                    <input type="hidden" id="documento-id" name="documento-id">
+                                                    <input type="text" name="matricula" id="matricula" autocomplete="cc-number" class="px-5 block w-full rounded-md border-0 py-1.5 text-lg text-gray-900 shadow-md focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                                        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M12.95 9.95a4 4 0 1 0-1.41-1.41L10 10.59l-1.54-1.54a4 4 0 1 0-1.41 1.41L8.59 12l-1.54 1.54a4 4 0 1 0 1.41 1.41L10 13.41l1.54 1.54a4 4 0 1 0 1.41-1.41L11.41 12l1.54-1.54zM10 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" clip-rule="evenodd" />
+                                                </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="w-full mx-auto md:w-1/2 mb-6">
+                                                <label for="propietarioCedula" class="block text-lg font-medium leading-6 text-gray-90 mb-6">Propietario</label>
+                                                <div class="mt-2 relative">
+                                                    <select name="propietarioCedula" id="propietarioCedula" class="px-5 block w-full rounded-md border-0 py-1.5 text-lg text-gray-900 shadow-md ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                                  <option value="">Seleccionar Propietario</option>
+                                                  <!-- Aquí se llenarán dinámicamente las opciones de cédula -->
+                                              </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="flex flex-col md:flex-row md:items-center md:gap-x-4">
+                                            <div class="w-full md:w-1/2">
+                                                <label for="nombre" class="block text-lg font-medium leading-6 text-gray-900 mb-6">Nombre</label>
+                                                <div class="mt-2">
+                                                    <input type="text" name="nombre" id="nombre" class="px-5 block w-full rounded-md border-0 py-1.5 text-lg text-gray-900 shadow-md ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                                </div>
+                                            </div>
+
+                                            <div class="w-full md:w-1/2 mb-6">
+                                                <label for="amarre" class="block text-lg font-medium leading-6 text-gray-900 mb-6">Num. Amarre</label>
+                                                <div class="mt-2">
+                                                    <input type="text" name="amarre" id="amarre" inputmode="numeric" pattern="[0-9]*" class="px-5 block w-full rounded-md border-0 py-1.5 text-lg text-gray-900 shadow-md ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex flex-col items-center content-center md:flex-row md:items-center md:gap-x-4 gap-y-5">
+                                            <div class="w-full md:w-1/2 mb-6">
+                                                <label for="cuota" class="block text-lg font-medium leading-6 text-gray-900 mb-6">Cuota</label>
+                                                <div class="mt-2">
+                                                    <input type="text" name="cuota" id="cuota" class="px-5 block w-full rounded-md border-0 py-1.5 text-lg text-gray-900 shadow-md ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" inputmode="numeric"
+                                                        pattern="[0-9]*">
+                                                </div>
+                                            </div>
+
+                                            <div class="w-full md:w-1/2" hidden>
+                                                <label for="salida" class="block text-lg font-medium leading-6 text-gray-900 mb-6">Salidas</label>
+                                                <div class="mt-2">
+                                                    <input type="text" name="salida" id="salida" class="px-5 block w-full rounded-md border-0 py-1.5 text-lg text-gray-900 shadow-md ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-6"></div>
+
+
+                                        <button id="btnAgregarUsuario" class="text-white bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-indigo-600 hover:to-purple-700 w-2/6 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 me-2 mb-6 transform transition duration-300 ease-in-out hover:scale-105">
+                                      Guardar
+                                  </button>
+
+
+                                    </div>
+                                </div>
+                            </form>
+
+                            <!-- Modal footer -->
+                            <div class="flex items-center p-4 md:p-5 "></div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- Botón de Editar -->
+        <button hidden class="btn-edit bg-gradient-to-r from-green-400 to-blue-500 p-3 text-white rounded-lg hover:from-blue-500 hover:to-green-400 hover:text-white hover:scale-105 hover:transition duration-300 ease-in-out hover:delay-200 hover:duration-150"
+            data-index="${index}" data-modal-target="edit-modal" data-modal-toggle="edit-modal">
+    Modificar
+</button>
+
+
+        <div id="edit-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex justify-center items-center w-full h-[calc(100%-1rem)] max-h-full bg-black bg-opacity-50 backdrop-blur-lg">
+            <div class="relative p-4 w-full max-w-2xl max-h-full">
+                <!-- Modal content -->
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
+                    <!-- Modal header -->
+                    <div class="flex items-center justify-between p-4 md:p-5 border-b dark:border-gray-700">
+                        <h1 class="text-3xl font-bold text-cyan-300">
+                            Editar Barco
+                        </h1>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="container mx-auto p-4 md:p-5 space-y-4">
+                        <img src="https://www.realyachtcharter.com/media/thumb/property/de-antonio-yacht-d33/KjFclikpv_Xs_1100x650_nqQsPIuX.jpg" alt="Imagen futurista" class="w-full h-48 object-cover rounded-lg mb-5">
+
+                        <form id="edit-form">
+                            <div class="mx-auto container-sm">
+                                <div class="flex flex-col flex-wrap p-12 bg-white bg-opacity-10 border-2 border-cyan-500 drop-shadow-xl rounded-xl gap-y-6">
+                                    <div class="flex flex-col md:w-full md:flex-row md:mx-auto md:items-center md:gap-x-4">
+                                        <div class="w-full mx-auto md:w-1/2">
+                                            <label for="matricula-edit" class="block text-sm font-medium leading-6 text-gray-900">Matrícula</label>
+                                            <div class="mt-2 relative">
+                                                <input type="text" name="matricula-edit" id="matricula-edit" class="px-5 block w-full rounded-md border-0 py-2 text-lg text-gray-900 shadow-md ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 transition duration-300 ease-in-out sm:max-w-xs sm:text-sm sm:leading-6 transform hover:scale-105 hover:shadow-lg"
+                                                />
+                                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                              <path fill-rule="evenodd" d="M12.95 9.95a4 4 0 1 0-1.41-1.41L10 10.59l-1.54-1.54a4 4 0 1 0-1.41 1.41L8.59 12l-1.54 1.54a4 4 0 1 0 1.41 1.41L10 13.41l1.54 1.54a4 4 0 1 0 1.41-1.41L11.41 12l1.54-1.54zM10 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" clip-rule="evenodd" />
+                                          </svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="w-full mx-auto md:w-1/2">
+                                        <label for="propietarioCedula-edit" class="block text-sm font-medium leading-6 text-gray-900">Propietario</label>
+                                        <div class="mt-2 relative">
+                                            <select name="propietarioCedula-edit" id="propietarioCedula-edit" class="px-5 block w-full rounded-md border-0 py-2 text-lg text-gray-900 shadow-md ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 transition duration-300 ease-in-out sm:max-w-xs sm:text-sm sm:leading-6 transform hover:scale-105 hover:shadow-lg">
+                                      <option value="">Seleccionar Propietario</option>
+                                      <!-- Aquí se llenarán dinámicamente las opciones de cédula -->
+                                  </select>
+                                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                                <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                          <path fill-rule="evenodd" d="M12.95 9.95a4 4 0 1 0-1.41-1.41L10 10.59l-1.54-1.54a4 4 0 1 0-1.41 1.41L8.59 12l-1.54 1.54a4 4 0 1 0 1.41 1.41L10 13.41l1.54 1.54a4 4 0 1 0 1.41-1.41L11.41 12l1.54-1.54zM10 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" clip-rule="evenodd" />
+                                      </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="w-full mx-auto md:w-1/2">
+                                        <label for="nombre-edit" class="block text-sm font-medium leading-6 text-gray-900">Nombre</label>
+                                        <div class="mt-2 relative">
+                                            <input type="text" name="nombre-edit" id="nombre-edit" class="px-5 block w-full rounded-md border-0 py-2 text-lg text-gray-900 shadow-md ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 transition duration-300 ease-in-out sm:max-w-xs sm:text-sm sm:leading-6 transform hover:scale-105 hover:shadow-lg">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="w-full mx-auto md:w-1/2">
+                                        <label for="amarre-edit" class="block text-sm font-medium leading-6 text-gray-900">Num. Amarre</label>
+                                        <div class="mt-2 relative">
+                                            <input type="text" name="amarre-edit" id="amarre-edit" inputmode="numeric" pattern="[0-9]*" class="px-5 block w-full rounded-md border-0 py-2 text-lg text-gray-900 shadow-md ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 transition duration-300 ease-in-out sm:max-w-xs sm:text-sm sm:leading-6 transform hover:scale-105 hover:shadow-lg">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="flex flex-col items-center content-center md:flex-row md:items-center md:gap-x-4 gap-y-5">
+                                        <div class="w-full mx-auto md:w-1/2">
+                                            <label for="cuota-edit" class="block text-sm font-medium leading-6 text-gray-900">Cuota</label>
+                                            <div class="mt-2 relative">
+                                                <input type="text" name="cuota-edit" id="cuota-edit" inputmode="numeric" pattern="[0-9]*" class="px-5 block w-full rounded-md border-0 py-2 text-lg text-gray-900 shadow-md ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 transition duration-300 ease-in-out sm:max-w-xs sm:text-sm sm:leading-6 transform hover:scale-105 hover:shadow-lg">
+                                            </div>
+                                        </div>
+
+                                        <div class="w-full mx-auto md:w-1/2" hidden>
+                                            <label for="salida-edit" class="block text-sm font-medium leading-6 text-gray-900">Salidas</label>
+                                            <div class="mt-2 relative">
+                                                <input type="text" name="salida-edit" id="salida-edit" class="px-5 block w-full rounded-md border-0 py-2 text-lg text-gray-900 shadow-md ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 transition duration-300 ease-in-out sm:max-w-xs sm:text-sm sm:leading-6 transform hover:scale-105 hover:shadow-lg">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+
+                                <input type="hidden" id="document-id" name="document-id" value="" />
+                                <!-- Campo oculto para almacenar el ID del documento -->
+                                <button id="btnEditarBarco" class="text-white bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-indigo-600 hover:to-purple-700 w-2/6 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 me-2 mb-6 transform transition duration-300 ease-in-out hover:scale-105">Editar</button>
+                            </div>
+                        </form>
+                        <div class="flex items-center p-4 md:p-5 ">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="app"></div>
+
+        <script type="module" src="/src/main.ts"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+        <script type="module" src="/src/Controllers/firebaseSocio.ts"></script>
+        <script type="module" src="/src/adminBarcos.ts"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                const currentLocation = window.location.pathname;
+                const menuItems = document.querySelectorAll('.nav-link');
+
+                menuItems.forEach(item => {
+                    if (item.getAttribute('href') === currentLocation) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        </script>
+        <script>
+            function animateMenu(element) {
+                element.animate([
+                    // keyframes
+                    {
+                        transform: 'scale(1)',
+                    }, {
+                        transform: 'scale(1.2)',
+                    }
+                ], {
+                    // timing options
+                    duration: 300,
+                    easing: 'ease-out'
+                });
+            }
+        </script>
+
+    </body>
+
+</html>

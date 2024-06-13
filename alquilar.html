@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./src/images/LogoYatchClub.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YatchClub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="src/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent fixed-top navbar-transparent">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="./src/images/LogoYatchClub.png" alt="Logo" class="d-inline-block align-text-top" style="width: 150px; height: 150px;">
+            </a>
+            <div class="">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+            <span class="navbar-toggler-icon" style="font-size: 2rem;"></span>
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M1 1h15M1 7h15M1 13h15" />
+  </button>
+            </div>
+
+            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+                <ul class="navbar-nav fs-4">
+                    <li class="nav-item">
+                        <a class="nav-link text-black " href="index.html" onmouseover="animateMenu(this)">INICIO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="socios.html" onmouseover="animateMenu(this)">SOCIOS DEL CLUB</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="barcos.html" onmouseover="animateMenu(this)">AÑADIR MI BARCO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black active" href="alquilar.html" onmouseover="animateMenu(this)">ALQUILAR UN BARCO</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Main modal -->
+    <div id="resultados-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex justify-center items-center w-full h-[calc(100%-1rem)] max-h-full bg-black bg-opacity-50 backdrop-blur-lg">
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+            <!-- Modal content -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b dark:border-gray-700">
+                <h1 class="text-3xl font-bold text-cyan-300">
+                    Resultados
+                </h1>
+
+            </div>
+
+            <!-- Modal body -->
+            <div class="container p-5" id="resultadosConsultas">
+                <div class="flex flex-col gap-5">
+                    <p class="text-white p-5 bg-black bg-opacity-20 rounded-lg" id="totalRecaudado"></p>
+                    <p class="text-white p-5 bg-black bg-opacity-20 rounded-lg" id="barcoMasViajes"></p>
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-700">
+                <!-- Puedes agregar botones u otros elementos aquí si es necesario -->
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="container pt-20 mt-20 mx-auto">
+        <!-- Modal para añadir un Barco -->
+
+        <div class="container-sm">
+            <h1 class="py-10 text-2xl font-bold text-black custom-heading">
+                TABLA ALQUILER
+            </h1>
+            <div class="relative mb-10 overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="futuristic-table w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400" id="tablaAlquilers">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-white">Matricula</th>
+                            <th scope="col" class="px-6 py-3 text-white">Capitan</th>
+                            <th scope="col" class="px-6 py-3 text-white">Hora de Salida</th>
+                            <th scope="col" class="px-6 py-3 text-white">Destino</th>
+                            <th scope="col" class="px-6 py-3 text-white">Valor</th>
+                            <th scope="col" class="px-6 py-3 text-white">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí se llenarán los alquileres -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="botones-principales flex flex-row items-center justify-center gap-4">
+            <div class="addbtn inline-block">
+                <button id="btn-add" class="futuristic-btn" type="button">
+                    Añadir Alquiler
+                </button>
+            </div>
+
+            <div class="viewresultsbtn inline-block">
+                <button id="resultados-btn" class="futuristic-btn" type="button">
+                    Ver Resultados
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Main modal -->
+    <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex justify-center items-center w-full h-[calc(100%-1rem)] max-h-full bg-black bg-opacity-50 backdrop-blur-lg">
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+            <!-- Modal content -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b dark:border-gray-700">
+                <h1 class="text-3xl font-bold text-cyan-300">
+                    Agregar
+                </h1>
+
+            </div>
+
+            <!-- Modal body -->
+            <div class="container mx-auto p-4 md:p-5 space-y-4">
+                <img src="https://static.andronautic.com/photos/activity/hd/cata-36-c1c2f8c8-2.jpg" alt="Imagen futurista" class="w-full h-48 object-cover rounded-lg mb-5">
+
+                <form id="formAlquilers">
+                    <div class="mx-auto">
+                        <div class="flex flex-col flex-wrap p-12 bg-white bg-opacity-10 border-2 border-cyan-500 drop-shadow-xl rounded-xl gap-y-6">
+                            <div class="flex flex-col md:flex-row gap-x-4">
+                                <div class="w-full md:w-1/2">
+                                    <label for="barmatricula" class="block text-lg font-medium text-cyan-300">Matricula</label>
+                                    <div class="mt-2">
+                                        <select name="barmatricula" id="barmatricula" class="px-5 block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-cyan-500 focus:ring-2 focus:ring-inset focus:ring-cyan-400 sm:max-w-xs sm:text-lg">
+                                            <option value="">Seleccionar Barco</option>
+                                            <!-- Aquí se llenarán dinámicamente las opciones de matrícula -->
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="w-full md:w-1/2">
+                                    <label for="codconductores" class="block text-lg font-medium text-cyan-300">Capitan</label>
+                                    <div class="mt-2">
+                                        <select name="codconductores" id="codconductores" class="px-5 block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-cyan-500 focus:ring-2 focus:ring-inset focus:ring-cyan-400 sm:max-w-xs sm:text-lg">
+                                            <option value="">Seleccionar Capitanr</option>
+                                            <!-- Aquí se llenarán dinámicamente las opciones de cédula -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col md:flex-row gap-x-4">
+                                <div class="w-full md:w-1/2">
+                                    <label for="destino" class="block text-lg font-medium text-cyan-300">Destino</label>
+                                    <div class="mt-2">
+                                        <input type="text" name="destino" id="destino" class="px-5 block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-cyan-500 focus:ring-2 focus:ring-inset focus:ring-cyan-400 sm:max-w-xs sm:text-lg" />
+                                    </div>
+                                </div>
+
+                                <div class="w-full md:w-1/2">
+                                    <label for="fechaHoraSalida" class="block text-lg font-medium text-cyan-300">Fecha de salida</label>
+                                    <div class="mt-2">
+                                        <input type="datetime-local" name="fechaHoraSalida" id="fechaHoraSalida" class="px-5 block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-cyan-500 focus:ring-2 focus:ring-inset focus:ring-cyan-400 sm:max-w-xs sm:text-lg"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button id="btnAgregarAlquiler" class="text-white bg-cyan-700 hover:bg-cyan-800 w-full md:w-1/2 mx-auto focus:ring-4 focus:ring-cyan-300 font-medium rounded-lg text-lg px-5 py-2.5 dark:bg-cyan-600 dark:hover:bg-cyan-700 focus:outline-none dark:focus:ring-cyan-800">
+                                Agregar Alquiler
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+    <!-- Botón de Editar -->
+    <button hidden class="btn-edit bg-yellow-300 p-3 text-white rounded-lg hover:bg-yellow-500 hover:text-white hover:rounded hover:scale-100 hover:transition hover:ease-in-out hover:delay-200 hover:duration-150" data-index="${index}" data-modal-target="edit-modal"
+        data-modal-toggle="edit-modal">
+        Editar
+    </button>
+
+    <!-- Modal de Edición -->
+    <div id="edit-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex justify-center items-center w-full h-[calc(100%-1rem)] max-h-full bg-black bg-opacity-50 backdrop-blur-lg">
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+            <!-- Modal content -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b dark:border-gray-700">
+                <h1 class="text-3xl font-bold text-cyan-300">
+                    Editar
+                </h1>
+
+            </div>
+
+
+            <!-- Modal body -->
+            <div class="container mx-auto p-4 md:p-5 space-y-4">
+                <img src="https://static.andronautic.com/photos/activity/hd/cata-36-c1c2f8c8-2.jpg" alt="Imagen futurista" class="w-full h-48 object-cover rounded-lg mb-5">
+
+                <form id="edit-form">
+                    <div class="mx-auto container-sm">
+                        <div class="flex flex-col flex-wrap p-12 bg-white bg-opacity-10 border-2 border-cyan-500 drop-shadow-xl rounded-xl gap-y-6">
+                            <div class="flex flex-col md:w-full md:flex-row md:mx-auto md:items-center md:gap-x-4">
+                                <div class="w-full mx-auto md:w-1/2">
+                                    <label for="barmatricula" class="block text-lg font-medium text-cyan-300">Matricula</label>
+                                    <div class="mt-2">
+                                        <select name="barmatricula-edit" id="barmatricula-edit" class="px-5 block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-cyan-500 focus:ring-2 focus:ring-inset focus:ring-cyan-400 sm:max-w-xs sm:text-lg">
+                                            <option value="">Seleccionar Barco</option>
+                                            <!-- Aquí se llenarán dinámicamente las opciones de matrícula -->
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="w-full mx-auto md:w-1/2">
+                                    <label for="codconductores" class="block text-lg font-medium text-cyan-300">Conductor</label>
+                                    <div class="mt-2">
+                                        <select name="codconductores-edit" id="codconductores-edit" class="px-5 block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-cyan-500 focus:ring-2 focus:ring-inset focus:ring-cyan-400 sm:max-w-xs sm:text-lg">
+                                            <option value="">Seleccionar Conductor</option>
+                                            <!-- Aquí se llenarán dinámicamente las opciones de cédula -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col md:w-full md:flex-row md:mx-auto md:items-center md:gap-x-4">
+                                <div class="w-full md:w-1/2">
+                                    <label for="destino" class="block text-lg font-medium text-cyan-300">Destino</label>
+                                    <div class="mt-2">
+                                        <input type="text" name="destino-edit" id="destino-edit" class="px-5 block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-cyan-500 focus:ring-2 focus:ring-inset focus:ring-cyan-400 sm:max-w-xs sm:text-lg" />
+                                    </div>
+                                </div>
+
+                                <div class="w-full md:w-1/2">
+                                    <label for="fechaHoraSalida" class="block text-lg font-medium text-cyan-300">Fecha de salida</label>
+                                    <div class="mt-2">
+                                        <input type="datetime-local" name="fechaHoraSalida-edit" id="fechaHoraSalida-edit" class="px-5 block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-cyan-500 focus:ring-2 focus:ring-inset focus:ring-cyan-400 sm:max-w-xs sm:text-lg"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="hidden" id="document-id" name="document-id" value="" />
+                            <!-- Campo oculto para almacenar el ID del documento -->
+                            <button id="btnAgregarAlquiler" class="text-white bg-cyan-700 hover:bg-cyan-800 w-full md:w-1/2 mx-auto focus:ring-4 focus:ring-cyan-300 font-medium rounded-lg text-lg px-5 py-2.5 dark:bg-cyan-600 dark:hover:bg-cyan-700 focus:outline-none dark:focus:ring-cyan-800">
+                                Agregar Alquiler
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <div id="app"></div>
+
+
+    <script type="module" src="/src/main.ts"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script type="module" src="/src/Controllers/firebaseSocio.ts"></script>
+    <script type="module" src="/src/adminAlquiler.ts"></script>
+    <script>
+        function animateMenu(element) {
+            element.animate([
+                // keyframes
+                {
+                    transform: 'scale(1)',
+                }, {
+                    transform: 'scale(1.2)',
+                }
+            ], {
+                // timing options
+                duration: 300,
+                easing: 'ease-out'
+            });
+        }
+    </script>
+    <script>
+        function hideDefaultModal() {
+            document.getElementById('default-modal').classList.add('hidden');
+        }
+    </script>
+
+</body>
+
+</html>

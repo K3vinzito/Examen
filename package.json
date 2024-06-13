@@ -1,0 +1,21 @@
+{
+  "name": "barcosprueba",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "firebase": "^10.12.2",
+    "flowbite": "^2.3.0",
+    "sweetalert2": "^11.11.1"
+  }
+}
